@@ -1,3 +1,7 @@
+import csv
+from openpyxl import load_workbook
+
+
 def unique_words():
     with open('files/input.txt', "r", encoding="utf8") as file:
         contents = file.readlines()
@@ -35,9 +39,36 @@ def quantity_every_word():
 def longest_rows():
     with open('files/input (4).txt', "r", encoding="utf8") as file:
         contents = file.readlines()
-        rows_lenghth = {}
-        for i in range(len(contents)):
-            rows_lenghth[i] = len(contents[i])
+        max_length = max(len(row) for row in contents)
+
+        for row in contents:
+            if len(row) == max_length:
+                print(row)
 
 
-quantity_every_word()
+def reverse_text():
+    with open('files/input (6).txt', "r", encoding="utf8") as file:
+        contents = file.readlines()
+        contents.reverse()
+        for row in contents:
+            print(''.join(reversed(row)))
+
+
+def sort_salary():
+    with open('files/input.csv') as file:
+        file_reader = csv.reader(file, delimiter=";")
+        company_salary = {}
+        for row in file_reader:
+            company_salary[row[0]] = int(row[1])
+
+        sorted_company_salary = dict((sorted(company_salary.items(), key=lambda x: x[1])))
+
+        for company in sorted_company_salary:
+            print(f'{company}: {sorted_company_salary[company]}')
+
+
+def sort_calories():
+    wb = load_workbook('files/trekking1.xlsx')
+    print(wb.sheetnames)
+
+sort_calories()
